@@ -588,7 +588,7 @@ def get_last(count = False, files = False, tags = False, referers = False, \
                    break
 
            l = {}
-           if 'referer' in entry:
+           if hostname and 'referer' in entry:
                # Do not show refereres that match our own hostname
                if not m.match(entry['referer']):
                    i += 1
