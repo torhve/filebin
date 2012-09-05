@@ -41,12 +41,12 @@ Apache
 
 Nginx 
 -------
+    client_max_body_size 30000M;
     location / { try_files $uri @filebin; }
     location @filebin {
         include uwsgi_params;
         uwsgi_read_timeout 6000;
         uwsgi_send_timeout 6000;
-        client_max_body_size 1024M;
         client_body_buffer_size 128k;
         uwsgi_pass unix:/run/shm/filebin.sock;
     }
@@ -62,6 +62,8 @@ Uwsgi (filebin.yaml)
         processes: 2
         module: filebin
         callable: app
+        buffer-size: 32768
+        post-buffering: 131072
         chdir: /srv/www/filebin
 
 Varnish
